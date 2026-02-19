@@ -1,6 +1,9 @@
 export function getEventIcon(activity: string): string {
   const a = activity.toLowerCase();
   
+  // Family
+  if (a.includes("family")) return "👨‍👩‍👧‍";
+
   // Photo & Autograph
   if (a.includes("photo session") || a.includes("group photo")) return "📸";
   if (a.includes("autograph")) return "✍️";

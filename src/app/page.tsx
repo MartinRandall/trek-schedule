@@ -3,7 +3,7 @@
 import { useState, useMemo, useEffect } from "react";
 import scheduleData from "./schedule";
 import { Event } from "./types";
-import { Header, Sidebar, EventList, WelcomeModal } from "./components";
+import { Header, Sidebar, EventList } from "./components";
 
 export default function Home() {
   const [selectedDay, setSelectedDay] = useState<string>("all");
@@ -53,7 +53,6 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-black text-amber-400 font-mono">
-      <WelcomeModal />
       <Header />
 
       <main className="max-w-7xl mx-auto p-2 sm:p-4 flex flex-col lg:flex-row gap-4">
