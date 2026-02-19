@@ -33,8 +33,18 @@ export function WelcomeModal() {
 
         {/* Content */}
         <div className="p-6">
-          <p className="text-amber-400 mb-6">
+          <p className="text-amber-400 mb-4">
           This website has been created by a fan for fans, and is not associated with ECP or the official Star Trek: The Cruise in any way. It is intended to provide an easy-to-use interface for viewing the schedule of events during the cruise, but it may contain inaccuracies or omissions. For the most up-to-date and accurate information, please refer to the official ECP materials and announcements.
+          </p>
+
+          <p className="text-amber-400 mb-6 text-sm">
+            Contact the site author:{" "}
+            <a
+              href="mailto:martin@coryl.com"
+              className="text-cyan-400 hover:text-cyan-300 underline"
+            >
+              martin@coryl.com
+            </a>
           </p>
 
           <button

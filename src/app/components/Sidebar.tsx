@@ -68,6 +68,15 @@ export function Sidebar({
           {eventCount} EVENTS FOUND
         </span>
       </div>
+      <div className="mt-3 bg-gray-900 border-l-4 border-cyan-500 rounded-tr-3xl p-3 sm:p-4 flex items-center gap-3">
+        <span className="inline-block h-3 w-6 bg-cyan-500 rounded-full" aria-hidden="true" />
+        <a
+          href="mailto:martin@coryl.com"
+          className="text-cyan-300 font-semibold text-sm tracking-wide hover:text-cyan-200"
+        >
+          CONTACT ME
+        </a>
+      </div>
     </aside>
   );
 }
