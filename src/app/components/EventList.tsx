@@ -11,7 +11,7 @@ export function EventList({ groupedEvents, currentTime }: EventListProps) {
     <section className="flex-1 min-w-0">
       <div className="bg-amber-600 rounded-tr-3xl p-2 mb-1 flex justify-between items-center">
         <span className="text-black font-bold text-sm sm:text-base">EVENT MANIFEST</span>
-        <span className="text-black text-xs hidden sm:inline">USS ENTERPRISE • NCC-1701</span>
+        <span className="text-black text-xs hidden sm:inline mr-2">USS ENTERPRISE • NCC-1701-D</span>
       </div>
 
       <div className="bg-gray-900 border-r-4 border-amber-600 min-h-[50vh] lg:min-h-[70vh] p-2 sm:p-4">
