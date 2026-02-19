@@ -1,15 +1,36 @@
 "use client";
 
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, useCallback, Suspense } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
 import scheduleData from "./schedule";
 import { Event } from "./types";
-import { Header, Sidebar, EventList } from "./components";
+import { Header, Sidebar, EventList, WelcomeModal } from "./components";
 
-export default function Home() {
+function ScheduleContent() {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  
   const [selectedDay, setSelectedDay] = useState<string>("all");
-  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [searchQuery, setSearchQuery] = useState<string>(
+    searchParams.get("search") || ""
+  );
   const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
   const [currentTime, setCurrentTime] = useState<Date>(new Date());
+
+  // Update URL when search changes
+  const handleSearchChange = useCallback(
+    (query: string) => {
+      setSearchQuery(query);
+      const params = new URLSearchParams(searchParams.toString());
+      if (query) {
+        params.set("search", query);
+      } else {
+        params.delete("search");
+      }
+      router.replace(`?${params.toString()}`, { scroll: false });
+    },
+    [searchParams, router]
+  );
 
   // Update current time every minute
   useEffect(() => {
@@ -68,7 +89,7 @@ export default function Home() {
         <Sidebar
           isOpen={isSidebarOpen}
           searchQuery={searchQuery}
-          onSearchChange={setSearchQuery}
+          onSearchChange={handleSearchChange}
           selectedDay={selectedDay}
           onDaySelect={handleDaySelect}
           days={days}
@@ -78,5 +99,18 @@ export default function Home() {
         <EventList groupedEvents={groupedEvents} currentTime={currentTime} />
       </main>
     </div>
+  );
+}
+
+export default function Home() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-black text-amber-400 font-mono flex items-center justify-center">
+        <p className="text-xl">LOADING...</p>
+      </div>
+    }>
+      <WelcomeModal />
+      <ScheduleContent />
+    </Suspense>
   );
 }
