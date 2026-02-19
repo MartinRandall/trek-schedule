@@ -39,7 +39,7 @@ export function EventList({ groupedEvents, currentTime }: EventListProps) {
               <div className="flex items-center gap-2 mb-3 sm:mb-4">
                 <div className="bg-cyan-500 h-6 sm:h-8 w-3 sm:w-4 rounded-l-full flex-shrink-0"></div>
                 <h2 className="text-base sm:text-xl font-bold text-cyan-400 truncate">{day}</h2>
-                <span className="text-cyan-400 text-xs sm:text-sm whitespace-nowrap">
+                <span className="text-cyan-400 hidden md:inline text-sm whitespace-nowrap">
                   {dayLocationMap[day]}
                 </span>
                 <div className="flex-1 h-1 bg-cyan-900 hidden sm:block"></div>
