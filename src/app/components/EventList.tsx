@@ -6,6 +6,17 @@ interface EventListProps {
   currentTime: Date;
 }
 
+const dayLocationMap: Record<string, string> = {
+  "Friday February 20 2026": "Port Canaveral, Florida",
+  "Saturday February 21 2026": "At Sea",
+  "Sunday February 22 2026": "Puerto Plata, Dominican Republic",
+  "Monday February 23 2026": "San Juan, Puerto Rico",
+  "Tuesday February 24 2026": "At Sea",
+  "Wednesday February 25 2026": "At Sea",
+  "Thursday February 26 2026": "CocoCay, Bahamas",
+  "Friday February 27 2026": "Port Canaveral, Florida",
+};
+
 export function EventList({ groupedEvents, currentTime }: EventListProps) {
   return (
     <section className="flex-1 min-w-0">
@@ -28,6 +39,9 @@ export function EventList({ groupedEvents, currentTime }: EventListProps) {
               <div className="flex items-center gap-2 mb-3 sm:mb-4">
                 <div className="bg-cyan-500 h-6 sm:h-8 w-3 sm:w-4 rounded-l-full flex-shrink-0"></div>
                 <h2 className="text-base sm:text-xl font-bold text-cyan-400 truncate">{day}</h2>
+                <span className="text-cyan-400 text-xs sm:text-sm whitespace-nowrap">
+                  {dayLocationMap[day]}
+                </span>
                 <div className="flex-1 h-1 bg-cyan-900 hidden sm:block"></div>
                 <span className="text-cyan-600 text-xs sm:text-sm whitespace-nowrap">
                   {events.length} events
