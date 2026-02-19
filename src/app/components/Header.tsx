@@ -8,11 +8,11 @@ export function Header() {
             <h1 className="text-lg sm:text-2xl lg:text-4xl font-bold tracking-wider text-amber-400 truncate">
               STAR TREK: THE CRUISE IX
             </h1>
-            <div className="flex flex-row justify-between">
+            <div className="flex flex-col lg:flex-row lg:items-center justify-between">
               <p className="text-amber-600 text-xs sm:text-sm tracking-widest truncate">
                 LCARS SCHEDULE INTERFACE • STARDATE 2026.02
               </p>
-              <p className="text-amber-400 text-xs sm:text-sm tracking-widest truncate">
+              <p className="text-amber-400 text-xs lg:text-sm truncate">
                 This site is <strong>not</strong> associated with ECP
               </p>
             </div>
