@@ -1,116 +1,50 @@
-"use client";
+import { Header } from "./components";
 
-import { useState, useMemo, useEffect, useCallback, Suspense } from "react";
-import { useSearchParams, useRouter } from "next/navigation";
-import scheduleData from "./schedule";
-import { Event } from "./types";
-import { Header, Sidebar, EventList, WelcomeModal } from "./components";
-
-function ScheduleContent() {
-  const searchParams = useSearchParams();
-  const router = useRouter();
-  
-  const [selectedDay, setSelectedDay] = useState<string>("all");
-  const [searchQuery, setSearchQuery] = useState<string>(
-    searchParams.get("search") || ""
-  );
-  const [isSidebarOpen, setIsSidebarOpen] = useState<boolean>(false);
-  const [currentTime, setCurrentTime] = useState<Date>(new Date());
-
-  // Update URL when search changes
-  const handleSearchChange = useCallback(
-    (query: string) => {
-      setSearchQuery(query);
-      const params = new URLSearchParams(searchParams.toString());
-      if (query) {
-        params.set("search", query);
-      } else {
-        params.delete("search");
-      }
-      router.replace(`?${params.toString()}`, { scroll: false });
-    },
-    [searchParams, router]
-  );
-
-  // Update current time every minute
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentTime(new Date());
-    }, 60000);
-    return () => clearInterval(interval);
-  }, []);
-
-  const days = useMemo(() => {
-    const uniqueDays = [...new Set(scheduleData.map((event) => event.day))];
-    return uniqueDays;
-  }, []);
-
-  const filteredEvents = useMemo(() => {
-    return scheduleData.filter((event) => {
-      const matchesDay = selectedDay === "all" || event.day === selectedDay;
-      const matchesSearch =
-        searchQuery === "" ||
-        event.activity.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        event.location.toLowerCase().includes(searchQuery.toLowerCase());
-      return matchesDay && matchesSearch;
-    });
-  }, [selectedDay, searchQuery]);
-
-  const groupedEvents = useMemo(() => {
-    const groups: Record<string, Event[]> = {};
-    filteredEvents.forEach((event) => {
-      if (!groups[event.day]) {
-        groups[event.day] = [];
-      }
-      groups[event.day].push(event);
-    });
-    return groups;
-  }, [filteredEvents]);
-
-  const handleDaySelect = (day: string) => {
-    setSelectedDay(day);
-    setIsSidebarOpen(false);
-  };
-
+export default function Home() {
   return (
     <div className="min-h-screen bg-black text-amber-400 font-mono">
       <Header />
 
-      <main className="max-w-7xl mx-auto p-2 sm:p-4 flex flex-col lg:flex-row gap-4">
-        {/* Mobile Toggle Button */}
-        <button
-          onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-          className="lg:hidden bg-amber-500 text-black font-bold p-3 rounded-lg flex items-center justify-between"
-        >
-          <span>FILTERS & SEARCH</span>
-          <span className="text-xl">{isSidebarOpen ? "▲" : "▼"}</span>
-        </button>
+      <main className="max-w-7xl mx-auto p-4 sm:p-8 flex items-center justify-center">
+        <div className="text-center py-16 sm:py-32 px-4 w-full">
+          {/* LCARS decorative bar */}
+          <div className="flex justify-center gap-2 mb-8">
+            <div className="bg-amber-500 rounded-full h-3 w-12"></div>
+            <div className="bg-purple-600 rounded-full h-3 w-8"></div>
+            <div className="bg-cyan-500 rounded-full h-3 w-16"></div>
+            <div className="bg-amber-500 rounded-full h-3 w-8"></div>
+          </div>
 
-        <Sidebar
-          isOpen={isSidebarOpen}
-          searchQuery={searchQuery}
-          onSearchChange={handleSearchChange}
-          selectedDay={selectedDay}
-          onDaySelect={handleDaySelect}
-          days={days}
-          eventCount={filteredEvents.length}
-        />
+          <p className="text-amber-600 text-sm sm:text-base tracking-widest mb-4">
+            TRANSMISSION ENDED • STARDATE 2026.03
+          </p>
 
-        <EventList groupedEvents={groupedEvents} currentTime={currentTime} />
+          <h2 className="text-2xl sm:text-4xl lg:text-5xl font-bold tracking-wider text-amber-400 mb-6">
+            THE VOYAGE HAS CONCLUDED
+          </h2>
+
+          <div className="max-w-xl mx-auto space-y-4">
+            <p className="text-amber-500 text-base sm:text-lg">
+              Star Trek: The Cruise IX has come to an end.
+            </p>
+            <p className="text-amber-400 text-lg sm:text-xl font-bold mt-8">
+              We&apos;ll see you next year!
+            </p>
+          </div>
+
+          <div className="mt-12 text-amber-700 text-xs sm:text-sm tracking-widest">
+            LIVE LONG AND PROSPER 🖖
+          </div>
+
+          {/* LCARS decorative bar */}
+          <div className="flex justify-center gap-2 mt-8">
+            <div className="bg-amber-500 rounded-full h-3 w-8"></div>
+            <div className="bg-cyan-500 rounded-full h-3 w-16"></div>
+            <div className="bg-purple-600 rounded-full h-3 w-8"></div>
+            <div className="bg-amber-500 rounded-full h-3 w-12"></div>
+          </div>
+        </div>
       </main>
     </div>
-  );
-}
-
-export default function Home() {
-  return (
-    <Suspense fallback={
-      <div className="min-h-screen bg-black text-amber-400 font-mono flex items-center justify-center">
-        <p className="text-xl">LOADING...</p>
-      </div>
-    }>
-      <WelcomeModal />
-      <ScheduleContent />
-    </Suspense>
   );
 }
