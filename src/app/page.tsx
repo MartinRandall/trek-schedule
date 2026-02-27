@@ -1,4 +1,4 @@
-import { Header } from "./components";
+import { Header, Countdown } from "./components";
 
 export default function Home() {
   return (
@@ -27,13 +27,19 @@ export default function Home() {
             <p className="text-amber-500 text-base sm:text-lg">
               Star Trek: The Cruise IX has come to an end.
             </p>
-            <p className="text-amber-400 text-lg sm:text-xl font-bold mt-8">
-              We&apos;ll see you next year!
-            </p>
           </div>
 
-          <div className="mt-12 text-amber-700 text-xs sm:text-sm tracking-widest">
-            LIVE LONG AND PROSPER 🖖
+          <div className="mt-12">
+            <Countdown />
+          </div>
+
+          <div className="mt-12 space-y-4">
+            <div className="text-amber-700 text-xs sm:text-sm tracking-widest">
+              LIVE LONG AND PROSPER 🖖
+            </div>
+            <div className="text-amber-600 text-xs sm:text-sm">
+              CONTACT: <a href="mailto:martin@coryl.com" className="text-amber-400 hover:text-amber-300 underline">martin@coryl.com</a>
+            </div>
           </div>
 
           {/* LCARS decorative bar */}
